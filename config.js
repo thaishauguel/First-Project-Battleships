@@ -1,152 +1,262 @@
-let myFleet = []
-let theEnemyFleet = []
+let myFleet = [];
+let theEnemyFleet = [];
 
-class ship{
-    constructor(nb, x, xf, y, yf, sens){
-        this.nbSpaces= nb;
-        this.xStartCoordinates=x
-        this.xStopCoordinates=xf
-        this.yStartCoordinates=y
-        this.yStopCoordinates=yf
-        this.sens=sens
+class ship {
+  constructor(nb, x, y, xf, yf, axis) {
+    this.length = nb;
+    this.xStartCoordinates = x;
+    this.xStopCoordinates = xf;
+    this.yStartCoordinates = y;
+    this.yStopCoordinates = yf;
+    this.axis = axis;
+  }
+  ArrOfPosition() {
+    let ArrOfPosition = [];
+    if (
+      Math.abs(this.xStartCoordinates - this.xStopCoordinates) > 0 ||
+      this.axis === "horizontal"
+    ) {
+      for (let i = this.xStartCoordinates; i <= this.xStopCoordinates; i++) {
+        let ArrPositionOfAnElement = [];
+        ArrPositionOfAnElement.push(this.yStartCoordinates, i );
+        ArrOfPosition.push(ArrPositionOfAnElement);
+      }
+    } else if (
+      Math.abs(this.xStartCoordinates - this.xStopCoordinates) === 0 ||
+      this.axis === "vertical"
+    ) {
+      for (let i = this.yStartCoordinates; i <= this.yStopCoordinates; i++) {
+        ArrPositionOfAnElement.push(i, this.xStartCoordinates);
+        ArrOfPosition.push(ArrPositionOfAnElement);
+      }
     }
+    // console.log(ArrOfPosition);
+    return ArrOfPosition;
+  }
 }
 
 //Creating my fleet
 
-let xStartAircraft = document.getElementById('xStartAircraft')
-let yStartAircraft = document.getElementById('yStartAircraft')
-let xStopAircraft = document.getElementById('xStopAircraft')
-let yStopAircraft = document.getElementById('yStopAircraft')
+let btnBoatsCharger = document.getElementById("boatsCharger");
 
-let xStartCruiser = document.getElementById('xStartCruiser')
-let yStartCruiser = document.getElementById('yStartCruiser')
-let xStopCruiser = document.getElementById('xStopCruiser')
-let yStopCruiser = document.getElementById('yStopCruiser')
+let xStartAircraft = document.getElementById("xStartAircraft");
+let yStartAircraft = document.getElementById("yStartAircraft");
+let xStopAircraft = document.getElementById("xStopAircraft");
+let yStopAircraft = document.getElementById("yStopAircraft");
 
-let xStartSubmarine1 = document.getElementById('xStartSubmarine1')
-let yStartSubmarine1 = document.getElementById('yStartSubmarine1')
-let xStopSubmarine1 = document.getElementById('xStopSubmarine1')
-let yStopSubmarine1 = document.getElementById('yStopSubmarine1')
+let xStartCruiser = document.getElementById("xStartCruiser");
+let yStartCruiser = document.getElementById("yStartCruiser");
+let xStopCruiser = document.getElementById("xStopCruiser");
+let yStopCruiser = document.getElementById("yStopCruiser");
 
-let xStartSubmarine2 = document.getElementById('xStartSubmarine2')
-let yStartSubmarine2 = document.getElementById('yStartSubmarine2')
-let xStopSubmarine2 = document.getElementById('xStopSubmarine2')
-let yStopSubmarine2 = document.getElementById('yStopSubmarine2')
+let xStartSubmarine1 = document.getElementById("xStartSubmarine1");
+let yStartSubmarine1 = document.getElementById("yStartSubmarine1");
+let xStopSubmarine1 = document.getElementById("xStopSubmarine1");
+let yStopSubmarine1 = document.getElementById("yStopSubmarine1");
 
-let xStartDestroyer = document.getElementById('xStartDestroyer')
-let yStartDestroyer = document.getElementById('yStartDestroyer')
-let xStopDestroyer = document.getElementById('xStopDestroyer')
-let yStopDestroyer = document.getElementById('yStopDestroyer')
+let xStartSubmarine2 = document.getElementById("xStartSubmarine2");
+let yStartSubmarine2 = document.getElementById("yStartSubmarine2");
+let xStopSubmarine2 = document.getElementById("xStopSubmarine2");
+let yStopSubmarine2 = document.getElementById("yStopSubmarine2");
 
-let aircraft = new ship (5,xStartAircraft, yStartAircraft, xStopAircraft, yStopAircraft)
-let cruiser = new ship (4,xStartCruiser, yStartCruiser, xStopCruiser, yStopCruiser)
-let submarine1= new ship(3, xStartSubmarine1,yStartSubmarine1, xStopSubmarine1, yStopSubmarine1 )
-let submarine2= new ship(3, xStartSubmarine2,yStartSubmarine2, xStopSubmarine2, yStopSubmarine2 )
-let destroyer= new ship(2, xStartDestroyer,yStartDestroyer, xStopDestroyer, yStopDestroyer )
+let xStartDestroyer = document.getElementById("xStartDestroyer");
+let yStartDestroyer = document.getElementById("yStartDestroyer");
+let xStopDestroyer = document.getElementById("xStopDestroyer");
+let yStopDestroyer = document.getElementById("yStopDestroyer");
+let myFleetOnTheGrid;
+let myTempArr = [];
+for (let i = 0; i < 10; i++) {
+  let innerArray = [];
+  for (let j = 0; j < 10; j++) {
+    innerArray.push(0);
+  }
+  myTempArr.push(innerArray);
+}
 
-myFleet= [aircraft, cruiser, submarine1, submarine2, destroyer]
+btnBoatsCharger.addEventListener("click", function HandleClickLUP() {
+  let aircraft = new ship(
+    5,
+    xStartAircraft.value,
+    yStartAircraft.value,
+    xStopAircraft.value,
+    yStopAircraft.value
+  );
+  let cruiser = new ship(
+    4,
+    xStartCruiser.value,
+    yStartCruiser.value,
+    xStopCruiser.value,
+    yStopCruiser.value
+  );
+  let submarine1 = new ship(
+    3,
+    xStartSubmarine1.value,
+    yStartSubmarine1.value,
+    xStopSubmarine1.value,
+    yStopSubmarine1.value
+  );
+  let submarine2 = new ship(
+    3,
+    xStartSubmarine2.value,
+    yStartSubmarine2.value,
+    xStopSubmarine2.value,
+    yStopSubmarine2.value
+  );
+  let destroyer = new ship(
+    2,
+    xStartDestroyer.value,
+    yStartDestroyer.value,
+    xStopDestroyer.value,
+    yStopDestroyer.value
+  );
+  myFleet = [aircraft, cruiser, submarine1, submarine2, destroyer];
+//   console.log(aircraft.ArrOfPosition());
 
-let myFleetOnTheGrid = myFleet.map((boat)=>{
-    let tempArr=[]
-    for (let i=0; i<10; i++){
-        let innerArray=[]
-        console.log(tempArr)
-        for (let j=0; j<10; j++ ){
-        innerArray.push(0)}
-        tempArr.push(innerArray)
-        console.log(tempArr)
+  myFleetOnTheGrid = myFleet.map((boat) => {
+    if (Math.abs(boat.xStartCoordinates - boat.xStopCoordinates) > 0) {
+      for (let i = boat.xStartCoordinates; i <= boat.xStopCoordinates; i++) {
+        myTempArr[boat.yStartCoordinates][i] = 1;
+      }
+    } else {
+      for (let i = boat.yStartCoordinates; i <= boat.yStopCoordinates; i++) {
+        myTempArr[i][boat.xStartCoordinates] = 1;
+      }
     }
-    if (Math.abs(boat.xStartCoordinates - boat.xStopCoordinates)>0){
-        for (let i=boat.xStartCoordinates; i<=boat.xStopCoordinates; i++){
-            tempArr[boat.yStartCoordinates][i]=1
+  });
+  console.log('my fleet', myTempArr);
 
-        }
-    } else{
-        for (let i=boat.yStartCoordinates; i<=boat.yStopCoordinates; i++){
-            tempArr[i][boat.xStartCoordinates]=1
-        }
-    }
-    return tempArr
-    })
+});
 
 //Creating my enemy's fleet
 
-let sens=['vertical', 'horizontal']
-let aircraftEnemySens = sens[Math.floor(Math.random() * sens.length)]
-let cruiserEnemySens = sens[Math.floor(Math.random() * sens.length)]
-let submarine1EnemySens = sens[Math.floor(Math.random() * sens.length)]
-let submarine2EnemySens = sens[Math.floor(Math.random() * sens.length)]
-let destroyer2EnemySens = sens[Math.floor(Math.random() * sens.length)]
+let enemyGrid = [];
+for (let i = 0; i < 10; i++) {
+  let innerArray = [];
+  for (let j = 0; j < 10; j++) {
+    innerArray.push(0);
+  }
+  enemyGrid.push(innerArray);
+}
 
-let xStartAircraftEnemy = 0;
-let yStartAircraftEnemy = 0;
-let xStopAircraftEnemy = 0;
-let yStopAircraftEnemy = 0;
+let axis = ["vertical", "horizontal"];
+let aircraftEnemySense = axis[Math.floor(Math.random() * axis.length)];
+let cruiserEnemySense = axis[Math.floor(Math.random() * axis.length)];
+let submarine1EnemySense = axis[Math.floor(Math.random() * axis.length)];
+let submarine2EnemySense = axis[Math.floor(Math.random() * axis.length)];
+let destroyerEnemySense = axis[Math.floor(Math.random() * axis.length)];
+// console.log(aircraftEnemySens, cruiserEnemySens, submarine1EnemySens, submarine2EnemySens, destroyerEnemySens );
 
-let xStartCruiserEnemy = 0;
-let yStartCruiserEnemy = 0;
-let xStopCruiserEnemy =0;
-let yStopCruiserEnemy =0;
+//random
 
-let xStartSubmarine1Enemy = 0;
-let yStartSubmarine1Enemy = 0;
-let xStopSubmarine1Enemy = 0;
-let yStopSubmarine1Enemy = 0;
+let aircraftEnemy = new ship(
+  5,
+  0,
+  0,
+  0,
+  0,
+  "horizontal"
+);
+let cruiserEnemy = new ship(
+  4,
+  0,
+  0,
+  0,
+  0,
+  "horizontal"
+);
+let submarine1Enemy = new ship(
+  3,
+  0,
+  0,
+  0,
+  0,
+  "horizontal"
+);
+let submarine2Enemy = new ship(
+  3,
+  0,
+  0,
+  0,
+  0,
+  "horizontal"
+);
+let destroyerEnemy = new ship(
+  2,
+  0,
+  0,
+  0,
+  0,
+  "horizontal"
+);
+// console.log(aircraftEnemy)
 
-let xStartSubmarine2Enemy = 0;
-let yStartSubmarine2Enemy = 0;
-let xStopSubmarine2Enemy = 0;
-let yStopSubmarine2Enemy = 0;
+theEnemyFleet = [
+  aircraftEnemy,
+  cruiserEnemy,
+  submarine1Enemy,
+  submarine2Enemy,
+  destroyerEnemy,
+]; //,
+// console.log(theEnemyFleet);
 
-let xStartDestroyerEnemy = 0;
-let yStartDestroyerEnemy = 0;
-let xStopDestroyerEnemy = 0;
-let yStopDestroyerEnemy = 0;
+let occupiedSpaces = [];
 
-let aircraftEnemy = new ship (5,xStartAircraftEnemy, yStartAircraftEnemy, xStopAircraftEnemy, yStopAircraftEnemy)
-let cruiserEnemy = new ship (4,xStartCruiserEnemyEnemy, yStartCruiserEnemyEnemy, xStopCruiserEnemyEnemy, yStopCruiserEnemyEnemy)
-let submarine1Enemy= new ship(3, xStartSubmarine1Enemy,yStartSubmarine1Enemy, xStopSubmarine1Enemy, yStopSubmarine1Enemy )
-let submarine2Enemy= new ship(3, xStartSubmarine2Enemy,yStartSubmarine2Enemy, xStopSubmarine2Enemy, yStopSubmarine2Enemy )
-let destroyerEnemy= new ship(2, xStartDestroyerEnemy,yStartDestroyerEnemy, xStopDestroyerEnemy, yStopDestroyerEnemy )
 
-myEnemyFleet= [aircraftEnemy, cruiserEnemyaircraftEnemy, submarine1EnemyaircraftEnemy, submarine2EnemyaircraftEnemy, destroyerEnemyaircraftEnemy]
-
-let myEnemyFleetOnTheGrid = myEnemyFleet.map((boat)=>{
-    let tempArr=[]
-    for (let i=0; i<10; i++){
-        let innerArray=[]
-        console.log(tempArr)
-        for (let j=0; j<10; j++ ){
-        innerArray.push('0')}
-        tempArr.push(innerArray)
-        console.log(tempArr)
-    }
-    
-    if (boat.sens = "horizontal"){
-            boat.xStartCoordinates= Math.floor(Math.random() * (10-boat.nbSpaces))
-            boat.xStopCoordinates= boat.xStartCoordinates+ boat.nbSpaces - 1
-            boat.yStartCoordinates= Math.floor(Math.random() * 10)
-            boat.yStopCoordinates= boat.yStartCoordinates
-
-            for (let i=boat.xStartCoordinates; i<=boat.xStopCoordinates; i++){
-                //         tempArr[boat.yStartCoordinates][i]=1
-            
-                //     }
-
+function getTheEnemygrid (){
+    theEnemyFleet.forEach((boat)=>{
+        if (boat.axis='horizontal'){
+            do{
+            settingCoordinatesHorizontal(boat)}
+            while (areCoordonatesvalid(boat)===false)
+            for (let i = boat.xStartCoordinates; i <= boat.xStopCoordinates; i++) {
+            enemyGrid[boat.yStartCoordinates][i] = boat.length;
+            // console.log(enemyGrid)
+            occupiedSpaces.push([boat.yStartCoordinates, i]);
             }
-    }
-    if (boat.sens = "vertical"){
-        boat.xStartCoordinates= Math.floor(Math.random() * 10)
-        boat.xStopCoordinates= boat.xStartCoordinates
-        boat.yStartCoordinates= Math.floor(Math.random() * (10-boat.nbSpaces))
-        boat.yStopCoordinates= boat.xStartCoordinates+ boat.nbSpaces - 1
-    
-        for (let i=boat.yStartCoordinates; i<=boat.yStopCoordinates; i++){
-                    tempArr[i][boat.xStartCoordinates]=1}
-    }
+        }
+}
+)
+console.log('voici toutes les places occupées', occupiedSpaces)
 
-    return tempArr
-    })
+console.log(enemyGrid);
+return enemyGrid
+}
 
+let a= getTheEnemygrid()
+console.log(a);
+
+
+
+function settingCoordinatesHorizontal(boat) {
+    // console.log(boat)
+    boat.xStartCoordinates = Math.floor(Math.random() * (10 - boat.length));
+    boat.xStopCoordinates = boat.xStartCoordinates + boat.length - 1;
+    boat.yStartCoordinates = Math.floor(Math.random() * 6);
+    boat.yStopCoordinates = boat.yStartCoordinates;
+}
+
+
+function areCoordonatesvalid (boat){
+        let positions= boat.ArrOfPosition()
+        // console.log(positions)
+        // console.log(occupiedSpaces)
+
+        for (let i=0; i<positions.length; i++){
+            for (let j=0; j<occupiedSpaces.length;j++){
+                // console.log(positions[i][0], occupiedSpaces[j][0], positions[i][1], occupiedSpaces[j][1] );
+                if (positions[i][0] === occupiedSpaces[j][0] && positions[i][0] === occupiedSpaces[j][1]) {
+                    console.log('i', i, 'j', j)
+                    console.log('déjà présente');
+                    console.log('ce sont les positions', positions)
+
+
+                    return false;
+            }
+        }
+        console.log(positions)
+
+        return true}
+        
+        
+}
 
