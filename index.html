@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <ul>
+                <li>Rules</li>
+                <li>Best Scores</li>
+            </ul>
+        </nav>
+        <a href=""></a>
+        <h1>Battleship</h1>
+        <h2>Will you have the strongest fleet ? </h2>
+
+    </header>
+    <section id="config">
+        <div>
+            <h3>Let's introduce yourself</h3>
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name here">
+        </div>
+        <div>
+            <h3>What would you fleet look like ?</h3>
+            <label for="regular">Regular game</label>
+            <input type="radio" id="regular" value="regular" name="regular">
+            <!-- <label for="Custom">Customised game</label>
+            <input type="radio" id="Custom" value="Custom" name="Custom"> -->
+            <div id="regular-config">
+                <label for="">Aircraft carrier</label><input type="text" value="1">
+                <label for="">Cruiser</label><input type="text" value="1">
+                <label for="">Submarine</label><input type="text" value="2">
+                <label for="">Destroyer</label><input type="text" value="1">
+            </div>
+            <!-- <div id="custom-config">
+                <label for="">Aircraft carrier</label><input type="text">
+                <label for="">Cruiser</label><input type="text">
+                <label for="">Submarine</label><input type="text">
+                <label for="">Destroyer</label><input type="text">
+            </div> -->
+        </div>
+    </section>
+    <section id="launch-game">
+        <h3>Ready play ? Choose the level of your enemy </h3>
+        <a href="./config.html" id="easy-level"><button>EASY</button></a>
+        <a href="./config.html" id="hard-level"><button>HARD</button></a>
+
+
+
+    </section>
+
+</body>
+</html>
