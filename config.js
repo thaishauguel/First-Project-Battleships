@@ -63,7 +63,7 @@ let xStartDestroyer = document.getElementById("xStartDestroyer");
 let yStartDestroyer = document.getElementById("yStartDestroyer");
 let xStopDestroyer = document.getElementById("xStopDestroyer");
 let yStopDestroyer = document.getElementById("yStopDestroyer");
-let myFleetOnTheGrid;
+let getMyGrid;
 let myTempArr = [];
 for (let i = 0; i < 10; i++) {
   let innerArray = [];
@@ -112,7 +112,8 @@ btnBoatsCharger.addEventListener("click", function HandleClickLUP() {
   myFleet = [aircraft, cruiser, submarine1, submarine2, destroyer];
 //   console.log(aircraft.ArrOfPosition());
 
-  myFleetOnTheGrid = myFleet.map((boat) => {
+  function getMyGrid() {
+  myFleet.map((boat) => {
     if (Math.abs(boat.xStartCoordinates - boat.xStopCoordinates) > 0) {
       for (let i = boat.xStartCoordinates; i <= boat.xStopCoordinates; i++) {
         myTempArr[boat.yStartCoordinates][i] = 1;
@@ -123,9 +124,12 @@ btnBoatsCharger.addEventListener("click", function HandleClickLUP() {
       }
     }
   });
-  console.log('my fleet', myTempArr);
+  return myTempArr
+}
+let b=getMyGrid()
+DisplayGrid(b)
+})
 
-});
 
 //Creating my enemy's fleet
 
@@ -216,14 +220,14 @@ function getTheEnemygrid (){
         }
 }
 )
-console.log('voici toutes les places occupées', occupiedSpaces)
+// console.log('voici toutes les places occupées', occupiedSpaces)
 
 console.log(enemyGrid);
 return enemyGrid
 }
 
 let a= getTheEnemygrid()
-console.log(a);
+// console.log(a);
 
 
 
@@ -231,7 +235,7 @@ function settingCoordinatesHorizontal(boat) {
     // console.log(boat)
     boat.xStartCoordinates = Math.floor(Math.random() * (10 - boat.length));
     boat.xStopCoordinates = boat.xStartCoordinates + boat.length - 1;
-    boat.yStartCoordinates = Math.floor(Math.random() * 6);
+    boat.yStartCoordinates = Math.floor(Math.random() * 10);
     boat.yStopCoordinates = boat.yStartCoordinates;
 }
 
@@ -245,18 +249,36 @@ function areCoordonatesvalid (boat){
             for (let j=0; j<occupiedSpaces.length;j++){
                 // console.log(positions[i][0], occupiedSpaces[j][0], positions[i][1], occupiedSpaces[j][1] );
                 if (positions[i][0] === occupiedSpaces[j][0] && positions[i][0] === occupiedSpaces[j][1]) {
-                    console.log('i', i, 'j', j)
-                    console.log('déjà présente');
-                    console.log('ce sont les positions', positions)
+                    // console.log('i', i, 'j', j)
+                    // console.log('déjà présente');
+                    // console.log('ce sont les positions', positions)
 
 
                     return false;
             }
         }
-        console.log(positions)
+        // console.log(positions)
 
         return true}
         
         
 }
 
+// Display the grid
+const myTbody = document.getElementById('myTbody')
+
+function DisplayGrid(grid) {
+  for (let i = 0; i < grid.length; i++) {
+      let raw = document.createElement('tr')
+      raw.innerHTML+= `<th>y/${i}</th>`
+      for (let j = 0; j < grid[i].length; j++) {
+        console.log('bonjoru');
+        raw.innerHTML+= `<td>${grid[i][j]}</td>`
+      }
+      myTbody.appendChild(raw) 
+  }
+  console.log(myTbody)
+
+}
+
+// DisplayGrid(a)
