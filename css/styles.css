@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+*{
+    margin : 0;
+    padding : 0;
+    box-sizing: border-box;
+    font-family: Ubuntu;
+}
+
+h2{
+    margin: 20px;
+}
+
+.cell{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border:1px solid lightgrey;
+
+
+}
+
+th{
+    padding: 8px
+}
+
+table{
+    border-collapse: collapse;
+    margin: 20px;
+
+}
+
+.class-2{
+    background: #fb743e;
+    color: #fb743e
+}
+
+.class-3{
+    background: #383e56;
+    color: #383e56;
+    
+}
+
+.class-4{
+    background: #9fb8ad;
+    color: #9fb8ad
+}
+
+.class-5{
+    background:#ADA7A7;
+    color: #ADA7A7
+
+
+}
+
+.aircraftLegend{
+    color:#ADA7A7
+
+
+}
+.cruiserLegend{
+    color:#9fb8ad;
+}
+.submarineLegend{
+    color : #383e56
+}
+
+.destroyerLegend{
+    color: #fb743e
+}
+
+.top-instructions {
+    height: 100px;
+    border: 2px solid #e7e6e1;
+    border-radius: 10px;
+    font-size: 2.5em;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+
+}
+
+.section-wrapper{
+    display: flex;
+    justify-content: space-around;
+}
+
+.hidden{
+    display: none;
+}
+
+.x-ord{
+    text-align:center;
+    font-weight: bold;
+}
+
+
+.class-0{
+    background: #D4F1F4;
+    color: #D4F1F4
+}
+
+
+.let-s-play{
+    border: 1px solid grey;
+    padding: 50px 150px;
+    font-size : 4em;
+    margin: 0px auto 30px auto;  
+    text-decoration: none;
+    color : coral
+ 
+}
+
+
+.instructions{
+    padding: 30px 0;
+    margin: 30px auto;
+    width: 70%; 
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.index-body{
+    display: flex;
+    flex-direction : column;
+}
+
+.main-title{
+    padding: 30px 0;
+    margin: 20px auto;
+    width: 70%; 
+    font-size: 6em;
+    text-align: center;
+    font-weight: bold;
+    
+}

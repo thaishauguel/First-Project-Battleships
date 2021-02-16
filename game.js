@@ -1,70 +1,61 @@
+// import{testEnemyGrid} from "./config.js"
+// console.log(testEnemyGrid);
+
+// console.log(message)
 //Get HTML ELEMENTS
 
 const myTbody = document.getElementById("myTbody");
 const theirTbody = document.getElementById("theirTbody");
 
-let attackX = document.getElementById("attackX");
-let attackY = document.getElementById("attackY");
+// let attackX = document.getElementById("attackX");
+// let attackY = document.getElementById("attackY");
 let attackBtn = document.getElementById("attackBtn");
 let receiveBtn = document.getElementById("receiveBtn");
 
-let xValue= attackX.value
-let yValue= attackY.value
-
+// let xValue = attackX.value;
+// let yValue = attackY.value;
 
 // Import functions
 
 const testEmptyArr = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ];
-  
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
 
-  const testMyGrid = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
-    [0, 3, 3, 3, 0, 0, 0, 4, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
-    [0, 0, 5, 5, 5, 5, 5, 4, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 3, 3, 3, 0],
-  ];
-  
+const testMyGrid = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
+  [0, 3, 3, 3, 0, 0, 0, 4, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
+  [0, 0, 5, 5, 5, 5, 5, 4, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 3, 3, 3, 0],
+];
+
 const testEnemyGrid = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 5, 5, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ];
-//   const testEnemyGrid = [
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 5, 5, 5, 5, 5, 0, 0, 0, 0],
-//     [0, 0, 4, 4, 4, 4, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
-//   ];
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 5, 5, 5, 5, 5, 0, 0, 0, 0],
+  [0, 0, 4, 4, 4, 4, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+  [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
+];
+
 // const stringGrid = localStorage.getItem("myGrid");
 // let realGrid;
 
@@ -75,21 +66,29 @@ const testEnemyGrid = [
 // console.log(realGrid)
 
 // Afficher ma grid
-
-// import{DisplayGrid} from "./config.js" ====> doesn't work
+let cells
 function DisplayGrid(grid, tbody) {
   tbody.innerHTML = "";
   console.log("coucou");
+
   for (let i = 0; i < grid.length; i++) {
     let raw = document.createElement("tr");
-    raw.innerHTML += `<th>y/${i}</th>`;
+
+    raw.innerHTML += `<th >${i}</th>`;
     for (let j = 0; j < grid[i].length; j++) {
-      raw.innerHTML += `<td>${grid[i][j]}</td>`;
+      raw.innerHTML += `<td class="cell class-${grid[i][j]}" data-coordinates=${[i,j]}>${grid[i][j]}</td>`;
     }
     tbody.appendChild(raw);
   }
   console.log(tbody);
+  cells = document.querySelectorAll(".cell")
+  console.log(cells);
+  cells.forEach(cell=> cell.onclick = (e) =>{
+      const coords = e.target.dataset.coordinates.split(",");
+      HandleAttack(coords[0],coords[1])})// add eventlistener on every cell
 }
+
+
 
 DisplayGrid(testMyGrid, myTbody);
 
@@ -100,47 +99,78 @@ DisplayGrid(testEmptyArr, theirTbody);
 
 //INFLIGER UNE ATTAQUE
 
-attackBtn.addEventListener("click", HandleAttack);
-console.log(attackX.value, attackY.value)
+// attackBtn.addEventListener("click", HandleAttack);
+// console.log(x, y);
 
-function HandleAttack() {
-    console.log(attackX.value, attackY.value)
+function HandleAttack(y, x) {
+    
 
-  if (testEnemyGrid[attackY.value][attackX.value] !== 0) {
-    testEmptyArr[attackY.value][attackX.value] = 'X';
-    let b=testEnemyGrid[attackY.value][attackX.value]
-    testEnemyGrid[attackY.value][attackX.value] = -b;
-    window.alert(`You attacked on x=${attackX.value} y=${attackY.value} and you hit them`);
+  console.log(x, y);
+
+  if (testEnemyGrid[y][x] !== 0) {
+    testEmptyArr[y][x] = "X";
+    let b = testEnemyGrid[y][x];
+    testEnemyGrid[y][x] = -b;
+    console.log(b);
+    window.alert(
+      `YOU attacked on x=${x} y=${y} and you hit them`
+    );
+    console.log(testEnemyGrid);
+    if (lookingForANumber(testEnemyGrid, b) === false) {
+      window.alert(`You just sunk a ship`);
+    }
   } else {
-    testEmptyArr[attackY.value][attackX.value] = 'M';
-    window.alert(`You attacked on x=${attackX.value} y=${attackY.value} and you missed!`);
+    testEmptyArr[y][x] = "M";
+    window.alert(
+      `YOU attacked on x=${x} y=${y} and you missed!`
+    );
   }
   DisplayGrid(testEmptyArr, theirTbody);
   isGameFinished(testEnemyGrid);
+  document.querySelectorAll('.top-instructions').forEach(div => div.classList.toggle('hidden'))
+  setTimeout(() => {
+    HandleReceiveAttack()
+  }, 1500);
+}
+
+function lookingForANumber(matrix, n) {
+// console.log(n);
+//     const res = matrix.reduce((acc,array) => array.some((element)=> element==n) || acc,false);
+// console.log("RES ",res);
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j] ==  n) {
+          console.log(true)
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 //RECEVOIR UNE ATTAQUE
 
 receiveBtn.addEventListener("click", HandleReceiveAttack);
-let randomCoordonates = []
+let randomCoordonates = [];
 
 function HandleReceiveAttack() {
-  let x = Math.floor(Math.random() * 10);
-  let y = Math.floor(Math.random() * 10);
+    let x = Math.floor(Math.random() * 10);
+    let y = Math.floor(Math.random() * 10);
 
   if (testMyGrid[y][x] !== 0) {
     let a = testMyGrid[y][x];
     testMyGrid[y][x] = -a;
     console.log(testMyGrid[y][x]);
 
-    window.alert(`They attacked on x=${x} y=${y} and they hit you`);
+    window.alert(`THEY attacked YOU on x=${x} y=${y} and they hit you`);
   } else {
-    window.alert(`They attacked on x=${x} y=${y} and they missed`);
+    window.alert(`THEY attacked YOU on x=${x} y=${y} and they missed`);
   }
-  console.log(testMyGrid);
+  document.querySelectorAll('.top-instructions').forEach(div => div.classList.toggle('hidden'))
   DisplayGrid(testMyGrid, myTbody);
 
   isGameFinished(testMyGrid);
+  // handleattack()
 }
 
 //Function pour déterminer si le jeu est terminé
@@ -152,7 +182,7 @@ function isGameFinished(grid) {
       sum += grid[i][j];
     }
   }
-  if ((sum === -63)) {
+  if (sum === -63) {
     window.alert(`End of the game`);
   }
 }

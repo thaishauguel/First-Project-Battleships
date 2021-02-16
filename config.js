@@ -1,5 +1,6 @@
-let myFleet = [];
+// let myFleet = [];
 let theEnemyFleet = [];
+const myTbody = document.getElementById("myTbody");
 
 class ship {
   constructor(nb, x, y, xf, yf, axis) {
@@ -18,7 +19,7 @@ class ship {
     ) {
       for (let i = this.xStartCoordinates; i <= this.xStopCoordinates; i++) {
         let ArrPositionOfAnElement = [];
-        ArrPositionOfAnElement.push(this.yStartCoordinates, i );
+        ArrPositionOfAnElement.push(this.yStartCoordinates, i);
         ArrOfPosition.push(ArrPositionOfAnElement);
       }
     } else if (
@@ -63,17 +64,30 @@ let xStartDestroyer = document.getElementById("xStartDestroyer");
 let yStartDestroyer = document.getElementById("yStartDestroyer");
 let xStopDestroyer = document.getElementById("xStopDestroyer");
 let yStopDestroyer = document.getElementById("yStopDestroyer");
-let getMyGrid;
-let myTempArr = [];
-for (let i = 0; i < 10; i++) {
-  let innerArray = [];
-  for (let j = 0; j < 10; j++) {
-    innerArray.push(0);
+
+// let myTempArr = [];
+
+function generateEmptygrid() {
+  let myTempArr = [];
+  for (let i = 0; i < 10; i++) {
+    let innerArray = [];
+    for (let j = 0; j < 10; j++) {
+      innerArray.push(0);
+    }
+    myTempArr.push(innerArray);
   }
-  myTempArr.push(innerArray);
+  return myTempArr
 }
 
-btnBoatsCharger.addEventListener("click", function HandleClickLUP() {
+if (btnBoatsCharger) {
+  btnBoatsCharger.addEventListener("click", () => {
+    generateShips();
+    generateEmptygrid();
+    DisplayGrid(fillMyGrid(generateShips(), generateEmptygrid()), myTbody);
+  });
+}
+
+function generateShips() {
   let aircraft = new ship(
     5,
     xStartAircraft.value,
@@ -109,39 +123,35 @@ btnBoatsCharger.addEventListener("click", function HandleClickLUP() {
     xStopDestroyer.value,
     yStopDestroyer.value
   );
-  myFleet = [aircraft, cruiser, submarine1, submarine2, destroyer];
-//   console.log(aircraft.ArrOfPosition());
+  return [aircraft, cruiser, submarine1, submarine2, destroyer];
+}
 
-  function getMyGrid() {
-  myFleet.map((boat) => {
+let ships = generateShips();
+let emptyGrid = generateEmptygrid();
+const myGrid = fillMyGrid(ships, emptyGrid);
+// localStorage.setItem('myGrid', JSON.stringify(myGrid));
+// console.log(myGrid);
+
+DisplayGrid(myGrid, myTbody);
+
+function fillMyGrid(ships, emptyGrid) {
+  const fullGrid = [...emptyGrid];
+  ships.map((boat) => {
     if (Math.abs(boat.xStartCoordinates - boat.xStopCoordinates) > 0) {
       for (let i = boat.xStartCoordinates; i <= boat.xStopCoordinates; i++) {
-        myTempArr[boat.yStartCoordinates][i] = 1;
+        fullGrid[boat.yStartCoordinates][i] = 1;
       }
     } else {
       for (let i = boat.yStartCoordinates; i <= boat.yStopCoordinates; i++) {
-        myTempArr[i][boat.xStartCoordinates] = 1;
+        fullGrid[i][boat.xStartCoordinates] = 1;
       }
     }
   });
-  return myTempArr
+  return fullGrid;
 }
-let b=getMyGrid()
-DisplayGrid(b)
-})
-
 
 //Creating my enemy's fleet
-
-let enemyGrid = [];
-for (let i = 0; i < 10; i++) {
-  let innerArray = [];
-  for (let j = 0; j < 10; j++) {
-    innerArray.push(0);
-  }
-  enemyGrid.push(innerArray);
-}
-
+let enemyTempArray = generateEmptygrid();
 let axis = ["vertical", "horizontal"];
 let aircraftEnemySense = axis[Math.floor(Math.random() * axis.length)];
 let cruiserEnemySense = axis[Math.floor(Math.random() * axis.length)];
@@ -152,46 +162,11 @@ let destroyerEnemySense = axis[Math.floor(Math.random() * axis.length)];
 
 //random
 
-let aircraftEnemy = new ship(
-  5,
-  0,
-  0,
-  0,
-  0,
-  "horizontal"
-);
-let cruiserEnemy = new ship(
-  4,
-  0,
-  0,
-  0,
-  0,
-  "horizontal"
-);
-let submarine1Enemy = new ship(
-  3,
-  0,
-  0,
-  0,
-  0,
-  "horizontal"
-);
-let submarine2Enemy = new ship(
-  3,
-  0,
-  0,
-  0,
-  0,
-  "horizontal"
-);
-let destroyerEnemy = new ship(
-  2,
-  0,
-  0,
-  0,
-  0,
-  "horizontal"
-);
+let aircraftEnemy = new ship(5, 0, 0, 0, 0, "horizontal");
+let cruiserEnemy = new ship(4, 0, 0, 0, 0, "horizontal");
+let submarine1Enemy = new ship(3, 0, 0, 0, 0, "horizontal");
+let submarine2Enemy = new ship(3, 0, 0, 0, 0, "horizontal");
+let destroyerEnemy = new ship(2, 0, 0, 0, 0, "horizontal");
 // console.log(aircraftEnemy)
 
 theEnemyFleet = [
@@ -205,80 +180,112 @@ theEnemyFleet = [
 
 let occupiedSpaces = [];
 
+function getTheEnemyGrid() {
+  theEnemyFleet.forEach((boat) => {
+    if ((boat.axis = "horizontal")) {
+      do {
+        settingCoordinatesHorizontal(boat);
+      } while (areCoordonatesvalid(boat) === false);
+      for (let i = boat.xStartCoordinates; i <= boat.xStopCoordinates; i++) {
+        [boat.yStartCoordinates][i] = boat.length;
+        // console.log(enemyTempArray)
+        occupiedSpaces.push([boat.yStartCoordinates, i]);
+      }
+    }
+  });
+  // console.log('voici toutes les places occupées', occupiedSpaces)
 
-function getTheEnemygrid (){
-    theEnemyFleet.forEach((boat)=>{
-        if (boat.axis='horizontal'){
-            do{
-            settingCoordinatesHorizontal(boat)}
-            while (areCoordonatesvalid(boat)===false)
-            for (let i = boat.xStartCoordinates; i <= boat.xStopCoordinates; i++) {
-            enemyGrid[boat.yStartCoordinates][i] = boat.length;
-            // console.log(enemyGrid)
-            occupiedSpaces.push([boat.yStartCoordinates, i]);
-            }
-        }
-}
-)
-// console.log('voici toutes les places occupées', occupiedSpaces)
-
-console.log(enemyGrid);
-return enemyGrid
+  console.log(enemyTempArray);
+  return enemyTempArray;
 }
 
-let a= getTheEnemygrid()
-// console.log(a);
-
-
+export let enemyGrid = getTheEnemyGrid();
+// console.log(enemyGrid);
 
 function settingCoordinatesHorizontal(boat) {
-    // console.log(boat)
-    boat.xStartCoordinates = Math.floor(Math.random() * (10 - boat.length));
-    boat.xStopCoordinates = boat.xStartCoordinates + boat.length - 1;
-    boat.yStartCoordinates = Math.floor(Math.random() * 10);
-    boat.yStopCoordinates = boat.yStartCoordinates;
+  // console.log(boat)
+  boat.xStartCoordinates = Math.floor(Math.random() * (10 - boat.length));
+  boat.xStopCoordinates = boat.xStartCoordinates + boat.length - 1;
+  boat.yStartCoordinates = Math.floor(Math.random() * 10);
+  boat.yStopCoordinates = boat.yStartCoordinates;
 }
 
+function areCoordonatesvalid(boat) {
+  let positions = boat.ArrOfPosition();
+  // console.log(positions)
+  // console.log(occupiedSpaces)
 
-function areCoordonatesvalid (boat){
-        let positions= boat.ArrOfPosition()
-        // console.log(positions)
-        // console.log(occupiedSpaces)
+  for (let i = 0; i < positions.length; i++) {
+    for (let j = 0; j < occupiedSpaces.length; j++) {
+      // console.log(positions[i][0], occupiedSpaces[j][0], positions[i][1], occupiedSpaces[j][1] );
+      if (
+        positions[i][0] === occupiedSpaces[j][0] &&
+        positions[i][0] === occupiedSpaces[j][1]
+      ) {
+        // console.log('i', i, 'j', j)
+        // console.log('déjà présente');
+        // console.log('ce sont les positions', positions)
 
-        for (let i=0; i<positions.length; i++){
-            for (let j=0; j<occupiedSpaces.length;j++){
-                // console.log(positions[i][0], occupiedSpaces[j][0], positions[i][1], occupiedSpaces[j][1] );
-                if (positions[i][0] === occupiedSpaces[j][0] && positions[i][0] === occupiedSpaces[j][1]) {
-                    // console.log('i', i, 'j', j)
-                    // console.log('déjà présente');
-                    // console.log('ce sont les positions', positions)
+        return false;
+      }
+    }
+    // console.log(positions)
 
-
-                    return false;
-            }
-        }
-        // console.log(positions)
-
-        return true}
-        
-        
+    return true;
+  }
 }
 
 // Display the grid
-const myTbody = document.getElementById('myTbody')
 
-function DisplayGrid(grid) {
+function DisplayGrid(grid, tbody) {
+  tbody.innerHTML = "";
   for (let i = 0; i < grid.length; i++) {
-      let raw = document.createElement('tr')
-      raw.innerHTML+= `<th>y/${i}</th>`
-      for (let j = 0; j < grid[i].length; j++) {
-        console.log('bonjoru');
-        raw.innerHTML+= `<td>${grid[i][j]}</td>`
-      }
-      myTbody.appendChild(raw) 
+    let raw = document.createElement("tr");
+    raw.innerHTML += `<th>y/${i}</th>`;
+    for (let j = 0; j < grid[i].length; j++) {
+      raw.innerHTML += `<td>${grid[i][j]}</td>`;
+    }
+    tbody.appendChild(raw);
   }
-  console.log(myTbody)
-
+  console.log(tbody);
 }
 
-// DisplayGrid(a)
+export const testEmptyArr = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+
+export const testMyGrid = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
+  [0, 3, 3, 3, 0, 0, 0, 4, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
+  [0, 0, 5, 5, 5, 5, 5, 4, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 3, 3, 3, 0],
+];
+
+export const testEnemyGrid = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 5, 5, 5, 5, 5, 0, 0, 0, 0],
+  [0, 0, 4, 4, 4, 4, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+  [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
+];
+

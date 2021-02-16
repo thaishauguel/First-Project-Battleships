@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="config.js"></script>
+    <title>Fleet configutation</title>
+</head>
+<body>
+    <nav>
+        <h1>Position your fleet on the sea</h1>
+        <a href="./index.html" id="go-back"><button>Go back</button></a>
+    </nav>
+    <table>
+            <thead>
+              <tr>
+                <th></th>
+
+                <th>x/0</th>
+                <th>x/1</th>
+                <th>x/2</th>
+                <th>x/3</th>
+                <th>x/4</th>
+                <th>x/5</th>
+                <th>x/6</th>
+                <th>x/7</th>
+                <th>x/8</th>
+                <th>x/9</th>
+              </tr>
+            </thead>
+            <tbody id="myTbody">
+            </tbody>
+    </table>
+    <div>
+        <h3>indicate the coordonates of your ships</h3>
+        <div>
+                <span>Position the aircraft carrier</span>
+                <label for="">Start</label (5 spaces)>
+                <input type="number" id="xStartAircraft" class="xStart Aircraft" value= "2" placeholder="(x from 0 to 9)">
+                <input type="number" id="yStartAircraft" class="yStart Aircraft" value= "4" placeholder="(y from 0 to 9)">
+                <label for="">Stop</label>
+                <input type="number" id="xStopAircraft" class= "xStop Aircraft" value= "6" placeholder="(x from 0 to 9)">
+                <input type="number" id="yStopAircraft" class="yStop Aircraft" value= "4" placeholder="(y from 0 to 9)">
+        </div>
+        <div>
+                <span>Position the cruiser (4 spaces)</span>
+                <label for="">Start</label (5 spaces)>
+                    <input type="number" id="xStartCruiser" class="xStart Cruiser" value= "7" placeholder="(x from 0 to 9)">
+                    <input type="number" id="yStartCruiser" class="yStart Cruiser" value= "1" placeholder="(y from 0 to 9)">
+                    <label for="">Stop</label>
+                    <input type="number" id="xStopCruiser" class= "xStop Cruiser" value= "7" placeholder="(x from 0 to 9)">
+                    <input type="number" id="yStopCruiser" class="yStop Cruiser" value= "4" placeholder="(y from 0 to 9)">
+        </div>
+        <div>
+            <span>Position the first submarine (3 spaces)</span>
+            <label for="">Start</label (5 spaces)>
+                <input type="number" id="xStartSubmarine1" class="xStart Submarine1" value= "1" placeholder="(x from 0 to 9)">
+                <input type="number" id="yStartSubmarine1" class="yStart Submarine1" value= "2" placeholder="(y from 0 to 9)">
+                <label for="">Stop</label>
+                <input type="number" id="xStopSubmarine1" class= "xStop Submarine1" value= "3" placeholder="(x from 0 to 9)">
+                <input type="number" id="yStopSubmarine1" class="yStop Submarine1" value= "2" placeholder="(y from 0 to 9)">
+        </div>
+        <div>
+            <span>Position the second submarine (3 spaces)</span>
+            <label for="">Start</label (5 spaces)>
+                <input type="number" id="xStartSubmarine2" class="xStart Submarine2" value= "6" placeholder="(x from 0 to 9)">
+                <input type="number" id="yStartSubmarine2" class="yStart Submarine2" value= "9" placeholder="(y from 0 to 9)">
+                <label for="">Stop</label>
+                <input type="number" id="xStopSubmarine2" class= "xStop Submarine2" value= "8" placeholder="(x from 0 to 9)">
+                <input type="number" id="yStopSubmarine2" class="yStop Submarine2" value= "9" placeholder="(y from 0 to 9)">
+        </div> 
+        <div>
+            <span>Position the destroyer (2 spaces)</span>
+            <label for="">Start</label>
+            <input type="number" id="xStartDestroyer" class="xStart Destroyer" value= "3" placeholder="(x from 0 to 9)">
+            <input type="number" id="yStartDestroyer" class="yStart Destroyer" value= "7" placeholder="(y from 0 to 9)">
+            <label for="">Stop</label>
+            <input type="number" id="xStopDestroyer" class= "xStop Destroyer" value= "4" placeholder="(x from 0 to 9)">
+            <input type="number" id="yStopDestroyer" class="yStop Destroyer" value= "7" placeholder="(y from 0 to 9)">
+        </div>           
+    </div>
+    <a id="boatsCharger"><button>Charge my boats</button></a>
+    <a id="letUsPlay" href="./game.html"><button>Let's play</button></a>
+
+    
+</body>
+</html>
+
+
+
