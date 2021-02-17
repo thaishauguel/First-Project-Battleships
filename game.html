@@ -12,7 +12,7 @@
 </head>
 <body class="game-body">
 
-    <div class="top-instructions your-turn is-active"><span class="firstSentence">Your turn to play</span> <br>Click on the spot you think there is a ship</div>
+    <div class="top-instructions your-turn is-active"><span class="firstSentence">Your turn to play</span> <br>Try to hit your enemy by clicking a square on their board</div>
     <div class="top-instructions their-turn hidden"><span class="firstSentence">Wait!</span><br>This is your enemy's turn</div>
 
     <div id='popup' class="popup hidden">
@@ -21,7 +21,7 @@
     <section>
         <h2>Your Fleet</h2>
         <table id="your-fleet">
-            <thead>
+            <!-- <thead>
               <tr>
                 <div class="x-ord">x axis</div>
               </tr>
@@ -38,7 +38,7 @@
                 <th>8</th>
                 <th>9</th>
               </tr>
-            </thead>
+            </thead> -->
             <tbody id="myTbody">
                 
             </tbody>
@@ -47,9 +47,9 @@
             <h3>Légende</h3>
             <ul>
                 <li class="aircraftLegend">Aircraft carrier (5 spaces)</li>
-                <li class="cruiserLegend">Cruiser</li>
-                <li class="submarineLegend">Submarine</li>
-                <li class="destroyerLegend">Destroyer</li>
+                <li class="cruiserLegend">Cruiser (4 spaces)</li>
+                <li class="submarineLegend">Submarine (3 spaces)</li>
+                <li class="destroyerLegend">Destroyer (2 spaces)</li>
 
     
             </ul>
@@ -68,7 +68,7 @@
         <h2>Your Enemy's Fleet</h2>
 
         <table id="enemy-fleet">
-            <thead>
+            <!-- <thead>
               <tr>
                     <div class="x-ord">x axis</div>
                 </tr>
@@ -85,7 +85,7 @@
                 <th>8</th>
                 <th>9</th>
               </tr>
-            </thead>
+            </thead> -->
             <tbody id='theirTbody'>
                 
             </tbody>
@@ -94,8 +94,8 @@
         <aside>
             <h3>Légende</h3>
             <ul>
-                <li>M: Missed</li>
-                <li>X: Hit</li>
+                <li>🌊 : You missed!</li>
+                <li>🚢 : You hit them !</li>
     
             </ul>
         </aside>

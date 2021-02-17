@@ -89,10 +89,11 @@ function DisplayGrid(grid, tbody, mine) {
 
   for (let i = 0; i < grid.length; i++) {
     let raw = document.createElement("tr");
-    raw.innerHTML += `<th >${i}</th>`;
+    // raw.innerHTML += `<th >${i}</th>`;
 
     for (let j = 0; j < grid[i].length; j++) {
-      raw.innerHTML += `<td class="cell class-${grid[i][j]} ${mine}" data-coordinates=${[i, j]}>${grid[i][j]}</td>`;
+      raw.innerHTML += `<td class="cell class-${grid[i][j]} ${grid[i][j] === "🌊"? "water" : ""} ${mine}" data-coordinates="${[i, j]}">${grid[i][j]}</td>`;
+
     }
 
     tbody.appendChild(raw);
@@ -120,11 +121,11 @@ function HandleAttack(y, x) {
   console.log(x, y);
 
   if (testEnemyGrid[y][x] !== 0) {
-    testEmptyArr[y][x] = "X";
+    testEmptyArr[y][x] = "🚢";
     let b = testEnemyGrid[y][x];
     testEnemyGrid[y][x] = -b;
 
-    popup.textContent = `YOU attacked on x=${x} y=${y} and you hit them`;
+    popup.textContent = `Woaah you just find one ! `;
     popup.classList.toggle("hidden");
     setTimeout(() => {
         popup.classList.toggle("hidden");
@@ -139,8 +140,10 @@ function HandleAttack(y, x) {
     }
 
   } else {
-    testEmptyArr[y][x] = "M";
-    popup.textContent = `YOU attacked on x=${x} y=${y} and you missed!`;
+    testEmptyArr[y][x] = "🌊";
+    // popup.textContent = `YOU attacked on x=${x} y=${y} and you missed!`;
+    popup.textContent = `Sorry you missed ! `;
+
     popup.classList.toggle("hidden");
     setTimeout(() => {
         popup.classList.toggle("hidden");
@@ -178,27 +181,30 @@ let hitCoordonates=[]
 function HandleReceiveAttack() {
 
     let tempCoords = remainingCoordonates.splice(Math.floor(Math.random() * remainingCoordonates.length), 1)
- let x = tempCoords[0][0];
-  let y = tempCoords[0][1];
+    let x = tempCoords[0][1];
+    let y = tempCoords[0][0];
 
 
 
   if (testMyGrid[y][x] !== 0) {
     let a = testMyGrid[y][x];
-    testMyGrid[y][x] = -a;
-    hitCoordonates.push([x,y]) 
-    console.log(hitCoordonates);
+    testMyGrid[y][x] = 0;
 
-    popup.textContent = `They attacked you on x=${x} y=${y} and they hit you`;
+    // let classIWantToTarget = `.data-coordinates=${[y, x]}`
+    let va = document.querySelector(`[data-coordinates="${[y, x]}"]`)
+    document.querySelector(`[data-coordinates="${[y, x]}"]`).classList.add('hit')
+    hitCoordonates.push([y,x]) 
+
+    popup.textContent = `Ooooh no ! You're hit ! `;
     popup.classList.toggle("hidden");
     setTimeout(() => {
         popup.classList.toggle("hidden");
     }, 2000);
 
   } else {
-    missedCoordonates.push([x,y]) 
+    missedCoordonates.push([y,x]) 
 
-    popup.textContent = `They attacked you on x=${x} y=${y} and they missed!`;
+    popup.textContent = `You're safe, they missed ! `;
     popup.classList.toggle("hidden");
     setTimeout(() => {
         popup.classList.toggle("hidden");
@@ -206,7 +212,7 @@ function HandleReceiveAttack() {
   }
 
   document.querySelectorAll(".top-instructions").forEach((div) => div.classList.toggle("hidden"));
-  DisplayGrid(testMyGrid, myTbody, 'mine');
+//   DisplayGrid(testMyGrid, myTbody, 'mine');
 
   isGameFinished(testMyGrid);
 }
@@ -217,10 +223,10 @@ function isGameFinished(grid) {
   let sum = 0;
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
-      sum += grid[i][j];
+      if (typeof grid[i][j]==='number') sum += grid[i][j];
     }
   }
-  if (sum === -63) {
+  if (sum === 0) {
     popup.textContent = `The game is over !`;
     popup.classList.toggle("hidden");
   }
