@@ -10,18 +10,13 @@
 
     <title>Game</title>
 </head>
-<body>
-    <div class="top-instructions your-turn is-active">'Your turn to play.' <br>'Click on the spot you think there is a ship'</div>
-    <div class="top-instructions their-turn hidden">'Wait !  '<br>'This is your enemy's turn'</div>
+<body class="game-body">
 
-    <!-- <p>Number of hits <span id="nb-hits">0</span></p> -->
-    <div>
-        <!-- <input type="number" id="attackX" value=0 placeholder="(x from 0 to 9)">
-        <input type="number" id="attackY" value=0 placeholder="(y from 0 to 9)">
-        <button id="attackBtn">Attack </button> -->
+    <div class="top-instructions your-turn is-active"><span class="firstSentence">Your turn to play</span> <br>Click on the spot you think there is a ship</div>
+    <div class="top-instructions their-turn hidden"><span class="firstSentence">Wait!</span><br>This is your enemy's turn</div>
 
+    <div id='popup' class="popup hidden">
     </div>
-    <!-- <button id="receiveBtn">Receive an attack </button> -->
     <div class="section-wrapper">
     <section>
         <h2>Your Fleet</h2>
@@ -106,7 +101,8 @@
         </aside>
     </section>
     </div>
-    
+    <a class="go-back-btn" href="./index.html"><= Go back to Instructions</a>
+
 
 </body>
 </html>

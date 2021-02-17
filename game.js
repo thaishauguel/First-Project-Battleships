@@ -6,6 +6,8 @@
 
 const myTbody = document.getElementById("myTbody");
 const theirTbody = document.getElementById("theirTbody");
+const popup = document.getElementById("popup");
+console.log(popup);
 
 // let attackX = document.getElementById("attackX");
 // let attackY = document.getElementById("attackY");
@@ -56,6 +58,19 @@ const testEnemyGrid = [
   [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
 ];
 
+
+//toutes les coordonnées sur lesquelles il peut me toucher
+const remainingCoordonates= []
+function generateEveryCoordonatesOfAGrid(arr){
+    for (let i=0; i< 10; i++){
+        for (let j=0; j<10; j++){
+            arr.push([i,j])
+        }
+    }
+    return arr
+}
+generateEveryCoordonatesOfAGrid(remainingCoordonates)
+
 // const stringGrid = localStorage.getItem("myGrid");
 // let realGrid;
 
@@ -65,82 +80,89 @@ const testEnemyGrid = [
 
 // console.log(realGrid)
 
-// Afficher ma grid
+// Afficher les grids
+
 let cells
-function DisplayGrid(grid, tbody) {
+
+function DisplayGrid(grid, tbody, mine) {
   tbody.innerHTML = "";
-  console.log("coucou");
 
   for (let i = 0; i < grid.length; i++) {
     let raw = document.createElement("tr");
-
     raw.innerHTML += `<th >${i}</th>`;
+
     for (let j = 0; j < grid[i].length; j++) {
-      raw.innerHTML += `<td class="cell class-${grid[i][j]}" data-coordinates=${[i,j]}>${grid[i][j]}</td>`;
+      raw.innerHTML += `<td class="cell class-${grid[i][j]} ${mine}" data-coordinates=${[i, j]}>${grid[i][j]}</td>`;
     }
+
     tbody.appendChild(raw);
   }
-  console.log(tbody);
-  cells = document.querySelectorAll(".cell")
-  console.log(cells);
-  cells.forEach(cell=> cell.onclick = (e) =>{
-      const coords = e.target.dataset.coordinates.split(",");
-      HandleAttack(coords[0],coords[1])})// add eventlistener on every cell
+
+  cells = document.querySelectorAll(".cell");
+
+  cells.forEach(
+    (cell) =>
+      (cell.onclick = (e) => {
+        const coords = e.target.dataset.coordinates.split(",");
+        HandleAttack(coords[0], coords[1]);
+      })
+  ); // add eventlistener on every cell
 }
 
+DisplayGrid(testMyGrid, myTbody, 'mine');
+
+DisplayGrid(testEmptyArr, theirTbody, 'their');
 
 
-DisplayGrid(testMyGrid, myTbody);
-
-// Afficher la grid vierge de l'enemy
-DisplayGrid(testEmptyArr, theirTbody);
-
-// voir les hits sur la grid de l'enemy
-
-//INFLIGER UNE ATTAQUE
-
-// attackBtn.addEventListener("click", HandleAttack);
-// console.log(x, y);
+//Fonctions d'attaque
 
 function HandleAttack(y, x) {
-    
-
   console.log(x, y);
 
   if (testEnemyGrid[y][x] !== 0) {
     testEmptyArr[y][x] = "X";
     let b = testEnemyGrid[y][x];
     testEnemyGrid[y][x] = -b;
-    console.log(b);
-    window.alert(
-      `YOU attacked on x=${x} y=${y} and you hit them`
-    );
-    console.log(testEnemyGrid);
+
+    popup.textContent = `YOU attacked on x=${x} y=${y} and you hit them`;
+    popup.classList.toggle("hidden");
+    setTimeout(() => {
+        popup.classList.toggle("hidden");
+    }, 2000);
+
     if (lookingForANumber(testEnemyGrid, b) === false) {
-      window.alert(`You just sunk a ship`);
+    popup.textContent = `You just sunk a ship`;
+    popup.classList.toggle("hidden");
+    setTimeout(() => {
+     popup.classList.toggle("hidden");
+    }, 2000);
     }
+
   } else {
     testEmptyArr[y][x] = "M";
-    window.alert(
-      `YOU attacked on x=${x} y=${y} and you missed!`
-    );
+    popup.textContent = `YOU attacked on x=${x} y=${y} and you missed!`;
+    popup.classList.toggle("hidden");
+    setTimeout(() => {
+        popup.classList.toggle("hidden");
+    }, 2000);
   }
-  DisplayGrid(testEmptyArr, theirTbody);
+
+  DisplayGrid(testEmptyArr, theirTbody, 'their');
   isGameFinished(testEnemyGrid);
-  document.querySelectorAll('.top-instructions').forEach(div => div.classList.toggle('hidden'))
-  setTimeout(() => {
-    HandleReceiveAttack()
-  }, 1500);
+
+  document.querySelectorAll(".top-instructions").forEach((div) => div.classList.toggle("hidden"));
+
+  setTimeout(() => {HandleReceiveAttack();}, 4000);
 }
 
 function lookingForANumber(matrix, n) {
-// console.log(n);
-//     const res = matrix.reduce((acc,array) => array.some((element)=> element==n) || acc,false);
-// console.log("RES ",res);
+  // console.log(n);
+  //     const res = matrix.reduce((acc,array) => array.some((element)=> element==n) || acc,false);
+  // console.log("RES ",res);
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-      if (matrix[i][j] ==  n) {
-          console.log(true)
+      if (matrix[i][j] == n) {
+        console.log(true);
         return true;
       }
     }
@@ -150,27 +172,43 @@ function lookingForANumber(matrix, n) {
 
 //RECEVOIR UNE ATTAQUE
 
-receiveBtn.addEventListener("click", HandleReceiveAttack);
-let randomCoordonates = [];
+let missedCoordonates = [];
+let hitCoordonates=[]
 
 function HandleReceiveAttack() {
-    let x = Math.floor(Math.random() * 10);
-    let y = Math.floor(Math.random() * 10);
+
+    let tempCoords = remainingCoordonates.splice(Math.floor(Math.random() * remainingCoordonates.length), 1)
+ let x = tempCoords[0][0];
+  let y = tempCoords[0][1];
+
+
 
   if (testMyGrid[y][x] !== 0) {
     let a = testMyGrid[y][x];
     testMyGrid[y][x] = -a;
-    console.log(testMyGrid[y][x]);
+    hitCoordonates.push([x,y]) 
+    console.log(hitCoordonates);
 
-    window.alert(`THEY attacked YOU on x=${x} y=${y} and they hit you`);
+    popup.textContent = `They attacked you on x=${x} y=${y} and they hit you`;
+    popup.classList.toggle("hidden");
+    setTimeout(() => {
+        popup.classList.toggle("hidden");
+    }, 2000);
+
   } else {
-    window.alert(`THEY attacked YOU on x=${x} y=${y} and they missed`);
+    missedCoordonates.push([x,y]) 
+
+    popup.textContent = `They attacked you on x=${x} y=${y} and they missed!`;
+    popup.classList.toggle("hidden");
+    setTimeout(() => {
+        popup.classList.toggle("hidden");
+    }, 2000);
   }
-  document.querySelectorAll('.top-instructions').forEach(div => div.classList.toggle('hidden'))
-  DisplayGrid(testMyGrid, myTbody);
+
+  document.querySelectorAll(".top-instructions").forEach((div) => div.classList.toggle("hidden"));
+  DisplayGrid(testMyGrid, myTbody, 'mine');
 
   isGameFinished(testMyGrid);
-  // handleattack()
 }
 
 //Function pour déterminer si le jeu est terminé
@@ -183,6 +221,7 @@ function isGameFinished(grid) {
     }
   }
   if (sum === -63) {
-    window.alert(`End of the game`);
+    popup.textContent = `The game is over !`;
+    popup.classList.toggle("hidden");
   }
 }

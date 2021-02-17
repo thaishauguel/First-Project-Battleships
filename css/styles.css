@@ -1,15 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+html { height:100%; }
 
 *{
     margin : 0;
     padding : 0;
     box-sizing: border-box;
-    font-family: Ubuntu;
+    font-family: Bebas Neue   ;
 }
 
-h2{
-    margin: 20px;
+/* dans game.html*/
+
+
+.game-body{
+    /* background-image: url('../sterimar_cat_nez_fragilise-1.jpg'); */
+    background-image: url('../navires-militaires-bateaux-combat-combat-navire-missiles-bateaux-securite-navires-guerre-modernes-sous-marins-jeu-icones-cuirasses-armes-armee-bateau-militaire-navire-illustration-navire-force_229548-305.jpg');
+    /* background-size: 50%; */
+    position: relative; 
+
 }
+h2{
+    margin: 10px;
+}
+
 
 .cell{
     cursor: pointer;
@@ -17,73 +30,126 @@ h2{
     height: 30px;
     text-align: center;
     border:1px solid lightgrey;
-
-
+    background-image: url('../sterimar_cat_nez_fragilise-1.jpg');
 }
 
+
+
 th{
-    padding: 8px
+    padding: 0 8px
 }
 
 table{
+
     border-collapse: collapse;
-    margin: 20px;
+    margin: 10px;
 
 }
 
 .class-2{
-    background: #fb743e;
-    color: #fb743e
+    background: #8c545c
+    ;
+    color: #8c545c
+
 }
 
 .class-3{
-    background: #383e56;
-    color: #383e56;
+    background: #55a9c7    ;
+    color: #55a9c7
+
+
+
     
 }
 
 .class-4{
-    background: #9fb8ad;
-    color: #9fb8ad
+    background: #fbfbe5
+    ;
+    color: #fbfbe5
+
 }
 
 .class-5{
-    background:#ADA7A7;
-    color: #ADA7A7
+    background:#106890    ;
+    color: #106890;
+
 
 
 }
 
 .aircraftLegend{
-    color:#ADA7A7
+    color:#106890
+
 
 
 }
 .cruiserLegend{
-    color:#9fb8ad;
+    color: #fbfbe5
+    ;
 }
 .submarineLegend{
-    color : #383e56
+    color :#55a9c7
+
+
+
 }
 
 .destroyerLegend{
-    color: #fb743e
+    color: #8c545c
+
 }
 
 .top-instructions {
     height: 100px;
     border: 2px solid #e7e6e1;
     border-radius: 10px;
-    font-size: 2.5em;
-    width: 70%;
-    margin: auto;
+    font-size: 2em;
+    width: 50%;
+    padding: 8px;
+    margin: 20px auto;
     text-align: center;
+    background : #b8ccd8
 
 }
 
+.firstSentence{
+    color: white;
+    font-weight: bold;
+    animation: fastBlinker 1s linear infinite;
+
+}
+
+  
+@keyframes fastBlinker {
+    50% {
+      opacity: 0;
+    }
+}
+
+.cell-hit{
+    background-image: url(../../../module-1/icone\ bataille\ navale.png);
+}
+.cell.their{
+    color: white
+}
+.cell.their.class-0{
+color: transparent}
+
 .section-wrapper{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    margin : 0 0 20px 0
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #e7e6e1;
+    box-shadow: 2px 5px 5px  darkgrey;
+    border-radius: 10px;
+    padding: 10px 60px;
+    background : #b8ccd8
 }
 
 .hidden{
@@ -97,28 +163,77 @@ table{
 
 
 .class-0{
-    background: #D4F1F4;
-    color: #D4F1F4
+    color: transparent;
+    /* background :#021c3c */
+
 }
 
 
-.let-s-play{
-    border: 1px solid grey;
-    padding: 50px 150px;
-    font-size : 4em;
-    margin: 0px auto 30px auto;  
+.go-back-btn{
+    border: 1px solid transparent;
+    background:  #8c545c;
+    padding: 10px; 
+    margin: 30px 0 0 0;
     text-decoration: none;
-    color : coral
+    color : white;
+    font-size: 0.8em;
+    font-weight: bold;
  
+}
+
+ul{
+    list-style-type: none;
+
+}
+
+
+#popup{
+    width : 500px;
+    Height : 300px;
+    border: 2px solid transparent;
+    background: #8c545c;
+    color : white;
+    font-size: 2em;
+    position: fixed;
+    z-index : 10;
+    left: 30%;
+    text-align: center;
+    padding: 70px;
+    animation: scale-up-center 0.3s linear;
+
+}
+
+@keyframes scale-up-center {
+    0% {
+      -webkit-transform: scale(0.5);
+              transform: scale(0.5);
+    }
+    100% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+  }
+
+/* dans l'index*/
+
+.let-s-play{
+    /* padding: 50px 150px; */
+    font-size : 3em;
+    /* margin: 0px auto 30px auto;   */
+    text-decoration: none;
+    color : white;
+    text-align: center;
+    width: 300px
 }
 
 
 .instructions{
-    padding: 30px 0;
-    margin: 30px auto;
+    /* padding: 30px 0;
+    margin: 30px auto; */
     width: 70%; 
     font-size: 2.5em;
-    text-align: center;
+    color : #b8ccd8;
+    margin : 0 0 150px;
 }
 
 .index-body{
@@ -126,12 +241,43 @@ table{
     flex-direction : column;
 }
 
-.main-title{
-    padding: 30px 0;
-    margin: 20px auto;
-    width: 70%; 
+/* .main-title{ */
+    /* padding: 30px 0;
+    margin: 20px auto; */
+    /* width: 40%; 
     font-size: 6em;
     text-align: center;
     font-weight: bold;
+    color: white; */
     
+
+.wrapper-index-body{
+    /* margin : 40px; */
+    border: 3px solid white;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#section-1{
+    background : white;
+    width: 100%;
+    height: 300px;
+    border-bottom: 2px solid #e7e6e1;
+    box-shadow: 2px 10px 10px 0 darkgrey;
+    text-align: center
+}
+
+#section-1 img{
+    width: 600px;
+    object-fit: cover;
+    margin-top: -30px;
+}
+
+#section-2{
+    background : #01193d
+    ;
+    width: 100%;
+    height: 432px;
+
 }
