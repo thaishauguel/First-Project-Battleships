@@ -11,13 +11,15 @@
     <title>Game</title>
 </head>
 <body class="game-body">
-
-    <div class="top-instructions your-turn is-active"><span class="firstSentence">Your turn to play</span> <br>Try to hit your enemy by clicking a square on their board</div>
-    <div class="top-instructions their-turn hidden"><span class="firstSentence">Wait!</span><br>This is your enemy's turn</div>
-
+    <nav>
+        <a class="go-back-btn" href="./index.html"><</a>
+        <div class="top-instructions your-turn is-active"><span class="firstSentence">Your turn to play</span> <br>Try to find the ships of your enemy</div>
+        <div class="top-instructions their-turn hidden"><span class="firstSentence">Wait!</span><br>This is your enemy's turn</div>
+    </nav>
     <div id='popup' class="popup hidden">
     </div>
     <div class="section-wrapper">
+
     <section>
         <h2>Your Fleet</h2>
         <table id="your-fleet">
@@ -44,7 +46,6 @@
             </tbody>
         </table>
         <aside>
-            <h3>Légende</h3>
             <ul>
                 <li class="aircraftLegend">Aircraft carrier (5 spaces)</li>
                 <li class="cruiserLegend">Cruiser (4 spaces)</li>
@@ -92,7 +93,6 @@
         </table>
         
         <aside>
-            <h3>Légende</h3>
             <ul>
                 <li>🌊 : You missed!</li>
                 <li>🚢 : You hit them !</li>
@@ -101,7 +101,6 @@
         </aside>
     </section>
     </div>
-    <a class="go-back-btn" href="./index.html"><= Go back to Instructions</a>
 
 
 </body>

@@ -99,7 +99,7 @@ function DisplayGrid(grid, tbody, mine) {
     tbody.appendChild(raw);
   }
 
-  cells = document.querySelectorAll(".cell");
+  cells = document.querySelectorAll(".cell.their");
 
   cells.forEach(
     (cell) =>
@@ -121,19 +121,28 @@ function HandleAttack(y, x) {
   console.log(x, y);
 
   if (testEnemyGrid[y][x] !== 0) {
-    testEmptyArr[y][x] = "🚢";
     let b = testEnemyGrid[y][x];
-    testEnemyGrid[y][x] = -b;
+    testEmptyArr[y][x] = `🔥`;
+    testEnemyGrid[y][x] = `🔥`;
 
-    popup.textContent = `Woaah you just find one ! `;
+    console.log(testEnemyGrid[y][x]);
+    console.log(b );
+    console.log(testEnemyGrid );
+
+
+
+    popup.textContent = `You're on 🔥, you just find one ! `;
     popup.classList.toggle("hidden");
     setTimeout(() => {
         popup.classList.toggle("hidden");
     }, 2000);
 
     if (lookingForANumber(testEnemyGrid, b) === false) {
-    popup.textContent = `You just sunk a ship`;
-    popup.classList.toggle("hidden");
+    popup.textContent = `Congrats, you just sunk a ship ! `;
+    console.log('where i am supposed to be');
+    setTimeout(() => {
+        popup.classList.toggle("hidden");
+       }, 2000);    
     setTimeout(() => {
      popup.classList.toggle("hidden");
     }, 2000);
@@ -151,11 +160,17 @@ function HandleAttack(y, x) {
   }
 
   DisplayGrid(testEmptyArr, theirTbody, 'their');
-  isGameFinished(testEnemyGrid);
+  if (isGameFinished(testEnemyGrid)===true){
+      console.log('game over')
+    popup.textContent = `The game is over !`;
+    setTimeout(() => {
+        popup.classList.toggle("hidden");
+    }, 10000);
+  }else{
 
   document.querySelectorAll(".top-instructions").forEach((div) => div.classList.toggle("hidden"));
-
   setTimeout(() => {HandleReceiveAttack();}, 4000);
+  }
 }
 
 function lookingForANumber(matrix, n) {
@@ -188,11 +203,11 @@ function HandleReceiveAttack() {
 
   if (testMyGrid[y][x] !== 0) {
     let a = testMyGrid[y][x];
-    testMyGrid[y][x] = 0;
+    testMyGrid[y][x] = "🔥";
+    // console.log(testMyGrid[y][x] = "🔥")
 
-    // let classIWantToTarget = `.data-coordinates=${[y, x]}`
-    let va = document.querySelector(`[data-coordinates="${[y, x]}"]`)
-    document.querySelector(`[data-coordinates="${[y, x]}"]`).classList.add('hit')
+    // let va = document.querySelector(`[data-coordinates="${[y, x]}"]`)
+    // document.querySelector(`[data-coordinates="${[y, x]}"]`).classList.add('hit')
     hitCoordonates.push([y,x]) 
 
     popup.textContent = `Ooooh no ! You're hit ! `;
@@ -203,6 +218,7 @@ function HandleReceiveAttack() {
 
   } else {
     missedCoordonates.push([y,x]) 
+    testMyGrid[y][x] = "🌊";
 
     popup.textContent = `You're safe, they missed ! `;
     popup.classList.toggle("hidden");
@@ -212,10 +228,53 @@ function HandleReceiveAttack() {
   }
 
   document.querySelectorAll(".top-instructions").forEach((div) => div.classList.toggle("hidden"));
-//   DisplayGrid(testMyGrid, myTbody, 'mine');
+  DisplayGrid(testMyGrid, myTbody, 'mine');
 
-  isGameFinished(testMyGrid);
+  if (isGameFinished(testMyGrid)===true){
+    popup.textContent = `The game is over !`;
+    popup.classList.toggle("hidden");
+  };
 }
+
+
+// function HandleReceiveAttack() {
+
+//     let tempCoords = remainingCoordonates.splice(Math.floor(Math.random() * remainingCoordonates.length), 1)
+//     let x = tempCoords[0][1];
+//     let y = tempCoords[0][0];
+
+
+
+//   if (testMyGrid[y][x] !== 0) {
+//     let a = testMyGrid[y][x];
+//     testMyGrid[y][x] = 0;
+
+//     // let classIWantToTarget = `.data-coordinates=${[y, x]}`
+//     let va = document.querySelector(`[data-coordinates="${[y, x]}"]`)
+//     document.querySelector(`[data-coordinates="${[y, x]}"]`).classList.add('hit')
+//     hitCoordonates.push([y,x]) 
+
+//     popup.textContent = `Ooooh no ! You're hit ! `;
+//     popup.classList.toggle("hidden");
+//     setTimeout(() => {
+//         popup.classList.toggle("hidden");
+//     }, 2000);
+
+//   } else {
+//     missedCoordonates.push([y,x]) 
+
+//     popup.textContent = `You're safe, they missed ! `;
+//     popup.classList.toggle("hidden");
+//     setTimeout(() => {
+//         popup.classList.toggle("hidden");
+//     }, 2000);
+//   }
+
+//   document.querySelectorAll(".top-instructions").forEach((div) => div.classList.toggle("hidden"));
+// //   DisplayGrid(testMyGrid, myTbody, 'mine');
+
+//   isGameFinished(testMyGrid);
+// }
 
 //Function pour déterminer si le jeu est terminé
 
@@ -224,10 +283,12 @@ function isGameFinished(grid) {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
       if (typeof grid[i][j]==='number') sum += grid[i][j];
+    //   console.log(sum)
     }
   }
+  console.log(sum)
   if (sum === 0) {
-    popup.textContent = `The game is over !`;
-    popup.classList.toggle("hidden");
-  }
+      console.log(true)
+    return true
+  } else{ return false}
 }
