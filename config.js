@@ -1,6 +1,6 @@
 // let myFleet = [];
 let theEnemyFleet = [];
-const myTbody = document.getElementById("myTbody");
+// const myTbody = document.getElementById("myTbody");
 
 class ship {
   constructor(nb, x, y, xf, yf, axis) {
@@ -199,7 +199,7 @@ function getTheEnemyGrid() {
   return enemyTempArray;
 }
 
-export let enemyGrid = getTheEnemyGrid();
+  let enemyGrid = getTheEnemyGrid();
 // console.log(enemyGrid);
 
 function settingCoordinatesHorizontal(boat) {
@@ -237,55 +237,55 @@ function areCoordonatesvalid(boat) {
 
 // Display the grid
 
-function DisplayGrid(grid, tbody) {
-  tbody.innerHTML = "";
-  for (let i = 0; i < grid.length; i++) {
-    let raw = document.createElement("tr");
-    raw.innerHTML += `<th>y/${i}</th>`;
-    for (let j = 0; j < grid[i].length; j++) {
-      raw.innerHTML += `<td>${grid[i][j]}</td>`;
-    }
-    tbody.appendChild(raw);
-  }
-  console.log(tbody);
-}
+// function DisplayGrid(grid, tbody) {
+//   tbody.innerHTML = "";
+//   for (let i = 0; i < grid.length; i++) {
+//     let raw = document.createElement("tr");
+//     raw.innerHTML += `<th>y/${i}</th>`;
+//     for (let j = 0; j < grid[i].length; j++) {
+//       raw.innerHTML += `<td>${grid[i][j]}</td>`;
+//     }
+//     tbody.appendChild(raw);
+//   }
+//   console.log(tbody);
+// }
 
-export const testEmptyArr = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
+//   const testEmptyArr = [
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+// ];
 
-export const testMyGrid = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
-  [0, 3, 3, 3, 0, 0, 0, 4, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
-  [0, 0, 5, 5, 5, 5, 5, 4, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 3, 3, 3, 0],
-];
+//   const testMyGrid = [
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
+//   [0, 3, 3, 3, 0, 0, 0, 4, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
+//   [0, 0, 5, 5, 5, 5, 5, 4, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 3, 3, 3, 0],
+// ];
 
-export const testEnemyGrid = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 5, 5, 5, 5, 5, 0, 0, 0, 0],
-  [0, 0, 4, 4, 4, 4, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
-];
+//   const testEnemyGrid = [
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 5, 5, 5, 5, 5, 0, 0, 0, 0],
+//   [0, 0, 4, 4, 4, 4, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 3, 3, 3, 0, 0, 0],
+// ];
 
