@@ -9,12 +9,12 @@ class ship {
   }
   ArrOfPosition() {
     let ArrOfPosition = [];
+    let ArrPositionOfAnElement = [];
     if (
       Math.abs(this.xStartCoordinates - this.xStopCoordinates) > 0 ||
       this.axis === "horizontal"
     ) {
       for (let i = this.xStartCoordinates; i <= this.xStopCoordinates; i++) {
-        let ArrPositionOfAnElement = [];
         ArrPositionOfAnElement.push(this.yStartCoordinates, i);
         ArrOfPosition.push(ArrPositionOfAnElement);
       }
@@ -22,6 +22,7 @@ class ship {
       Math.abs(this.xStartCoordinates - this.xStopCoordinates) === 0 ||
       this.axis === "vertical"
     ) {
+        console.log('bonjour')
       for (let i = this.yStartCoordinates; i <= this.yStopCoordinates; i++) {
         ArrPositionOfAnElement.push(i, this.xStartCoordinates);
         ArrOfPosition.push(ArrPositionOfAnElement);
@@ -56,31 +57,48 @@ let enemyTempArray = generateEmptygrid();
 
 //random
 
-let aircraftEnemy = new ship(5, 0, 0, 0, 0, "horizontal");
+let aircraftEnemy = new ship(5, 0, 0, 0, 0, "vertical");
 let cruiserEnemy = new ship(4, 0, 0, 0, 0, "horizontal");
-let submarine1Enemy = new ship(3, 0, 0, 0, 0, "horizontal");
+let submarine1Enemy = new ship(3, 0, 0, 0, 0, "vertical");
 let submarine2Enemy = new ship(3, 0, 0, 0, 0, "horizontal");
 let destroyerEnemy = new ship(2, 0, 0, 0, 0, "horizontal");
 
-let theEnemyFleet = [
-  aircraftEnemy,
-  cruiserEnemy,
-  submarine1Enemy,
-  submarine2Enemy,
-  destroyerEnemy,
-]; 
+let theEnemyFleet = [aircraftEnemy,     cruiserEnemy,
+    submarine1Enemy,
+    submarine2Enemy,
+    destroyerEnemy];  
+ 
 
 let occupiedSpaces = [];
 
 function getTheEnemyGrid() {
-    let enemyGrid = theEnemyFleet.forEach((boat) => {
-    if ((boat.axis = "horizontal")) {
+  theEnemyFleet.forEach((boat) => {
+
+    console.log(boat.axis);
+    if (boat.axis === "horizontal") {
+      console.log("coucou2");
+
       do {
         settingCoordinatesHorizontal(boat);
       } while (areCoordonatesvalid(boat) === false);
       for (let i = boat.xStartCoordinates; i <= boat.xStopCoordinates; i++) {
         enemyTempArray[boat.yStartCoordinates][i] = boat.length;
         occupiedSpaces.push([boat.yStartCoordinates, i]);
+        console.log('horizontal', occupiedSpaces);
+      }
+    } else {
+    //   console.log("coucou");
+      do {
+        settingCoordinatesVertical(boat);
+      } while (areCoordonatesvalid(boat) === false);
+      console.log(boat.xStartCoordinates, boat.yStartCoordinates, boat.yStopCoordinates);
+      for (let i = boat.yStartCoordinates; i <= boat.yStopCoordinates; i++) {
+        // console.log(enemyTempArray);
+        console.log(i);
+        enemyTempArray[i][boat.xStartCoordinates] = boat.length;
+        occupiedSpaces.push([i, boat.xStartCoordinates]);
+        console.log('vertical', occupiedSpaces);
+
       }
     }
   });
@@ -100,6 +118,13 @@ function settingCoordinatesHorizontal(boat) {
   boat.yStopCoordinates = boat.yStartCoordinates;
 }
 
+function settingCoordinatesVertical(boat) {
+  boat.xStartCoordinates = Math.floor(Math.random() * 10);
+  boat.xStopCoordinates = boat.xStartCoordinates;
+  boat.yStartCoordinates = Math.floor(Math.random() * (10 - boat.length));
+  boat.yStopCoordinates = boat.yStartCoordinates + boat.length - 1;
+}
+
 function areCoordonatesvalid(boat) {
   let positions = boat.ArrOfPosition();
 
@@ -109,7 +134,6 @@ function areCoordonatesvalid(boat) {
         positions[i][0] === occupiedSpaces[j][0] &&
         positions[i][1] === occupiedSpaces[j][1]
       ) {
- 
         return false;
       }
     }
